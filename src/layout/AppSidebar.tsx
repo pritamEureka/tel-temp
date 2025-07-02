@@ -17,8 +17,8 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     icon: <IoGrid />,
-    name: "Dashboard",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+    name: "Home",
+    subItems: [{ name: "Land", path: "/", pro: false }],
   },
 
   {
