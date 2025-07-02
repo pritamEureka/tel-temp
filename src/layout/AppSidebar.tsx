@@ -1,14 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 
-import {
 
-  ChevronDownIcon,
-  GridIcon,
-
-  PageIcon,
-
-} from "../icons";
+import { FaChevronDown } from "react-icons/fa6";
+import { IoGrid } from "react-icons/io5";
 import { useSidebar } from "../context/SidebarContext";
 
 
@@ -21,14 +16,14 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <GridIcon />,
+    icon: <IoGrid />,
     name: "Dashboard",
     subItems: [{ name: "Ecommerce", path: "/", pro: false }],
   },
 
   {
     name: "Pages",
-    icon: <PageIcon />,
+    icon: < IoGrid/>,
     subItems: [
       // { name: "Blank Page", path: "/blank", pro: false },
       // { name: "404 Error", path: "/error-404", pro: false },
@@ -132,7 +127,7 @@ const AppSidebar: React.FC = () => {
                 <span className="menu-item-text">{nav.name}</span>
               )}
               {(isExpanded || isHovered || isMobileOpen) && (
-                <ChevronDownIcon
+                <FaChevronDown
                   className={`ml-auto w-5 h-5 transition-transform duration-200 ${
                     openSubmenu?.type === "main" &&
                     openSubmenu?.index === index
