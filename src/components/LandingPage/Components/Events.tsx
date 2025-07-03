@@ -361,7 +361,7 @@ const Events = () => {
         
         <div className="flex justify-center mt-12">
           <button
-            onClick={() => navigate('/all-events')}
+            onClick={() => navigate('/dashboard/all-events')}
             className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white transition-all duration-300 ease-in-out bg-gradient-to-r from-purple-600 to-blue-600 rounded-full hover:from-purple-700 hover:to-blue-700 hover:scale-105 hover:shadow-xl transform"
           >
             <span className="relative z-10">Explore all Events</span>
