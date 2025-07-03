@@ -1,4 +1,5 @@
 import PageMeta from "../../components/common/PageMeta";
+import HomePageComponent from "../../components/user/HomePageComponent/HomePageComponent";
 
 const HomePage = () => {
   return (
@@ -8,8 +9,8 @@ const HomePage = () => {
         description="This is Event management Page"
       />
       <div>
-        <h1>Welcome to the Home Page</h1>
-        <p>This is the main content of the home page.</p>
+
+       <HomePageComponent />
       </div>
     </>
   );

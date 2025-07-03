@@ -1,12 +1,12 @@
 const Footer = () => {
   return (
-    <footer className="bg-[#13042a] text-white pt-16 pb-8">
-      <div className="container mx-auto max-w-7xl px-4">
+    <footer className="bg-[#030008] text-white pt-16 pb-8">
+      <div className="container mx-auto max-w-6xl px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="mb-6">
-              <h2 className="text-4xl font-bold text-white mb-4">Event</h2>
+              <h2 className="text-4xl font-bold text-white mb-4">Event Management</h2>
               <p className="text-gray-300 text-lg leading-relaxed max-w-md">
                 Your premier destination for discovering and managing
                 extraordinary events. Connect with experiences that matter.

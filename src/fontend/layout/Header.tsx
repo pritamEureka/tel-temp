@@ -37,17 +37,20 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-300 border-b-2 border-transparent ${
         isScrolled
           ? "bg-transparent backdrop-blur-md shadow-lg py-4"
-          : "bg-transparent py-5"
+          : "bg-transparent py-5 "
       }`}
+      style={{
+        borderImage: 'linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899) 1'
+      }}
     >
       <div className="container mx-auto max-w-6xl px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <a href="/" className="relative z-10">
-            <div className="flex items-center text-4xl text-white font-bold">
+            <div className="flex items-center text-5xl text-white font-bold uppercase tracking-wider">
               {/* <img 
                 src="/logo/logo.svg" 
                 alt="Stax Logo" 
@@ -115,10 +118,10 @@ const Header = () => {
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-4">
-              <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5">
+              <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
                 Industry Portal
               </button>
-              <button className="text-white font-bold uppercase hover:text-white transition-all duration-300 px-4 py-2 bg-primary rounded-lg hover:bg-primary/80">
+              <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
                 Login / Sign Up
               </button>
             </div>

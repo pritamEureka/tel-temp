@@ -6,7 +6,7 @@ const UserLayout = () => {
   return (
     <div>
       <Header />
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-[#030008]">
         <Outlet />
       </div>
       <Footer />
