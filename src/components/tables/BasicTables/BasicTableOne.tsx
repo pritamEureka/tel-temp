@@ -119,7 +119,7 @@ export default function BasicTableOne() {
             <TableRow>
               <TableCell
                 isHeader
-                className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                className="px-5 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
                 User
               </TableCell>
