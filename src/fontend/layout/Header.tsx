@@ -1,8 +1,6 @@
+import { useState, useEffect } from "react";
 
-
-import { useState, useEffect } from 'react';
-
-import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,33 +16,34 @@ const Header = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Events', href: '/events' },
+    { name: "Home", href: "/" },
+    { name: "Events", href: "/events" },
 
     {
-      name: 'Explore by',
-      href: '#',
+      name: "Explore by",
+      href: "#",
       dropdown: [
-        { name: 'Login', href: '/login' },
-        { name: 'Register', href: '/register' },
-        { name: 'Profile', href: '/profile' },
-      ] 
+        { name: "Login", href: "/login" },
+        { name: "Register", href: "/register" },
+        { name: "Profile", href: "/profile" },
+      ],
     },
-    
   ];
 
   return (
-    <header 
+    <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-[#13042a]/90 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-5'
+        isScrolled
+          ? "bg-transparent backdrop-blur-md shadow-lg py-4"
+          : "bg-transparent py-5"
       }`}
     >
-      <div className="container mx-auto max-w-7xl px-4">
+      <div className="container mx-auto max-w-6xl px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <a href="/" className="relative z-10">
@@ -56,7 +55,7 @@ const Header = () => {
                 height={40}
                 className="h-auto"
               /> */}
-              Event 
+              Event
             </div>
           </a>
 
@@ -66,23 +65,31 @@ const Header = () => {
               <div key={link.name} className="relative group">
                 {link.dropdown ? (
                   <>
-                    <button 
+                    <button
                       className="text-white hover:text-primary transition-all duration-300 font-medium px-5 py-2 relative group flex items-center"
-                      onClick={() => setActiveDropdown(activeDropdown === link.name ? null : link.name)}
+                      onClick={() =>
+                        setActiveDropdown(
+                          activeDropdown === link.name ? null : link.name
+                        )
+                      }
                     >
                       {link.name}
                       <FiChevronDown className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:text-primary" />
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                     </button>
-                    
+
                     {/* Dropdown Menu */}
-                    <div className={`absolute top-full left-0 mt-2 w-64 bg-[#13042a]/95 backdrop-blur-md rounded-lg shadow-xl border border-white/10 transition-all duration-300 ${
-                      activeDropdown === link.name ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
-                    }`}>
+                    <div
+                      className={`absolute top-full left-0 mt-2 w-64 bg-[#13042a]/95 backdrop-blur-md rounded-lg shadow-xl border border-white/10 transition-all duration-300 ${
+                        activeDropdown === link.name
+                          ? "opacity-100 visible translate-y-0"
+                          : "opacity-0 invisible -translate-y-2"
+                      }`}
+                    >
                       <div className="py-2">
                         {link.dropdown.map((item, idx) => (
-                          <a 
-                            key={idx} 
+                          <a
+                            key={idx}
                             href={item.href}
                             className="block px-4 py-2 text-white hover:bg-white/5 hover:text-primary transition-colors duration-300"
                             onClick={() => setActiveDropdown(null)}
@@ -94,7 +101,7 @@ const Header = () => {
                     </div>
                   </>
                 ) : (
-                  <a 
+                  <a
                     href={link.href}
                     className="text-white hover:text-primary transition-all duration-300 font-medium px-5 py-2 relative group"
                   >
@@ -105,18 +112,17 @@ const Header = () => {
               </div>
             ))}
           </nav>
-
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-4">
-              <button className="text-white hover:text-primary transition-all duration-300 px-4 py-2 border border-white/20 rounded-lg hover:bg-white/5">
+              <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5">
                 Industry Portal
               </button>
-              <button className="text-white hover:text-white transition-all duration-300 px-4 py-2 bg-primary rounded-lg hover:bg-primary/80">
+              <button className="text-white font-bold uppercase hover:text-white transition-all duration-300 px-4 py-2 bg-primary rounded-lg hover:bg-primary/80">
                 Login / Sign Up
               </button>
             </div>
-            
+
             <div className="lg:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -136,7 +142,7 @@ const Header = () => {
       {/* Mobile Navigation */}
       <div
         className={`lg:hidden overflow-hidden bg-[#13042a]/95 backdrop-blur-md transition-all duration-300 ${
-          isOpen ? 'max-h-screen py-5' : 'max-h-0 py-0'
+          isOpen ? "max-h-screen py-5" : "max-h-0 py-0"
         }`}
       >
         <div className="px-4 space-y-4">
@@ -146,15 +152,27 @@ const Header = () => {
                 <div>
                   <button
                     className="flex items-center justify-between w-full text-white hover:text-primary transition-colors duration-300 py-2 border-b border-white/10"
-                    onClick={() => setActiveDropdown(activeDropdown === link.name ? null : link.name)}
+                    onClick={() =>
+                      setActiveDropdown(
+                        activeDropdown === link.name ? null : link.name
+                      )
+                    }
                   >
                     <span>{link.name}</span>
-                    <FiChevronDown className={`h-4 w-4 transition-transform duration-300 ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
+                    <FiChevronDown
+                      className={`h-4 w-4 transition-transform duration-300 ${
+                        activeDropdown === link.name ? "rotate-180" : ""
+                      }`}
+                    />
                   </button>
-                  
-                  <div className={`pl-4 space-y-2 overflow-hidden transition-all duration-300 ${
-                    activeDropdown === link.name ? 'max-h-96 py-2' : 'max-h-0 py-0'
-                  }`}>
+
+                  <div
+                    className={`pl-4 space-y-2 overflow-hidden transition-all duration-300 ${
+                      activeDropdown === link.name
+                        ? "max-h-96 py-2"
+                        : "max-h-0 py-0"
+                    }`}
+                  >
                     {link.dropdown.map((item, idx) => (
                       <a
                         key={idx}
