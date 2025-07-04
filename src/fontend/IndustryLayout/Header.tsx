@@ -22,15 +22,13 @@ const Header = () => {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Events", href: "/events" },
 
     {
-      name: "Explore by",
+      name: "I am",
       href: "#",
       dropdown: [
-        { name: "Login", href: "/login" },
-        { name: "Register", href: "/register" },
-        { name: "Profile", href: "/profile" },
+        { name: "Event Organizer", href: "/login" },
+        { name: "Venue Manager", href: "/register" },
       ],
     },
   ];
@@ -114,15 +112,14 @@ const Header = () => {
                 )}
               </div>
             ))}
+          
+          </nav>
             {/* Action Buttons */}
             <div className="flex items-center space-x-4">
               <div className="hidden lg:flex items-center space-x-4">
-                <a href={"/industry"}>
-                  <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
-                    Industry Portal
-                  </button>
-                </a>
-
+                <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
+                  Book Artist
+                </button>
                 <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
                   Login / Sign Up
                 </button>
@@ -141,7 +138,6 @@ const Header = () => {
                 </button>
               </div>
             </div>
-          </nav>
         </div>
       </div>
 

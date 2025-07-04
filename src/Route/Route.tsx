@@ -7,6 +7,9 @@ import HomePage from "../pages/UserPage/HomePage";
 import UserLayout from "../fontend/layout/UserLayout";
 import Home from "../pages/Dashboard/Home";
 import AppLayout from "../layout/AppLayout";
+import EventsPage from "../pages/UserPage/EventsPage";
+import IndustryLayout from "../fontend/IndustryLayout/IndustryLayout";
+import IndustryHomepage from "../pages/IndustryPage/IndustryHomepage";
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +17,15 @@ export const router = createBrowserRouter([
     element: <UserLayout />,
     children: [
       { index: true, element: <HomePage /> },
-    
+      { path: "events", element: <EventsPage /> },
+    ],
+  },
+  {
+    path: "/industry",
+    element: <IndustryLayout />,
+    children: [
+      { index: true, element: <IndustryHomepage /> },
+      { path: "events", element: <EventsPage /> },
     ],
   },
   {
