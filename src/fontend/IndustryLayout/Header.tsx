@@ -112,32 +112,34 @@ const Header = () => {
                 )}
               </div>
             ))}
-          
           </nav>
-            {/* Action Buttons */}
-            <div className="flex items-center space-x-4">
-              <div className="hidden lg:flex items-center space-x-4">
+          {/* Action Buttons */}
+          <div className="flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-4">
+              <a href={"/artists"}>
                 <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
                   Book Artist
                 </button>
-                <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
-                  Login / Sign Up
-                </button>
-              </div>
+              </a>
 
-              <div className="lg:hidden">
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="text-white focus:outline-none w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center"
-                >
-                  {isOpen ? (
-                    <FiX className="h-6 w-6" />
-                  ) : (
-                    <FiMenu className="h-6 w-6" />
-                  )}
-                </button>
-              </div>
+              <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
+                Login / Sign Up
+              </button>
             </div>
+
+            <div className="lg:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-white focus:outline-none w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center"
+              >
+                {isOpen ? (
+                  <FiX className="h-6 w-6" />
+                ) : (
+                  <FiMenu className="h-6 w-6" />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

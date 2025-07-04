@@ -10,6 +10,8 @@ import AppLayout from "../layout/AppLayout";
 import EventsPage from "../pages/UserPage/EventsPage";
 import IndustryLayout from "../fontend/IndustryLayout/IndustryLayout";
 import IndustryHomepage from "../pages/IndustryPage/IndustryHomepage";
+import ArtistsLayout from "../fontend/ArtistsLayout/ArtistsLayout";
+import ArtistsHomepage from "../pages/ArtistsHomepage/ArtistsHomepage";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
     element: <IndustryLayout />,
     children: [
       { index: true, element: <IndustryHomepage /> },
+      { path: "events", element: <EventsPage /> },
+    ],
+  },
+  {
+    path: "/artists",
+    element: <ArtistsLayout />,
+    children: [
+      { index: true, element: <ArtistsHomepage /> },
       { path: "events", element: <EventsPage /> },
     ],
   },

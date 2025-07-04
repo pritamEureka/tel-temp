@@ -5,7 +5,7 @@ const HomeBanner = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center "
           style={{ 
-            backgroundImage: "url('/images/banner/bannerimage.webp')"
+            backgroundImage: "url('/images/banner/img.jpg')"
            
           }}
         ></div>
