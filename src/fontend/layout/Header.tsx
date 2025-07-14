@@ -122,10 +122,11 @@ const Header = () => {
                     Industry Portal
                   </button>
                 </a>
-
-                <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
-                  Login / Sign Up
-                </button>
+                <a href={"/login"}>
+                  <button className="text-white font-bold uppercase hover:text-primary transition-all duration-300 px-6 py-3 border border-white/20 rounded-lg hover:bg-white/5 tracking-widest">
+                    Login / Sign Up
+                  </button>
+                </a>
               </div>
 
               <div className="lg:hidden">

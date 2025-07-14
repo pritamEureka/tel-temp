@@ -12,6 +12,8 @@ import IndustryLayout from "../fontend/IndustryLayout/IndustryLayout";
 import IndustryHomepage from "../pages/IndustryPage/IndustryHomepage";
 import ArtistsLayout from "../fontend/ArtistsLayout/ArtistsLayout";
 import ArtistsHomepage from "../pages/ArtistsHomepage/ArtistsHomepage";
+import LogInPage from "../pages/UserPage/LogInPage";
+
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +23,10 @@ export const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "events", element: <EventsPage /> },
     ],
+  },
+  {
+    path: "/login",
+    element: <LogInPage/>,
   },
   {
     path: "/industry",
