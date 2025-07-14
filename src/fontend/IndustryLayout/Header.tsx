@@ -6,6 +6,9 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [currentUserType, setCurrentUserType] = useState<
+    "event-organizer" | "venue-manager"
+  >("event-organizer");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,8 +19,25 @@ const Header = () => {
       }
     };
 
+    // Check URL parameters on component mount
+    const urlParams = new URLSearchParams(window.location.search);
+    const typeParam = urlParams.get("type");
+    if (typeParam === "venue-manager" || typeParam === "event-organizer") {
+      setCurrentUserType(typeParam as "event-organizer" | "venue-manager");
+    }
+
+    // Listen for user type changes
+    const handleUserTypeChange = (event: CustomEvent) => {
+      setCurrentUserType(event.detail);
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("userTypeChanged", handleUserTypeChange as EventListener);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("userTypeChanged", handleUserTypeChange as EventListener);
+    };
   }, []);
 
   const navLinks = [
@@ -27,8 +47,8 @@ const Header = () => {
       name: "I am",
       href: "#",
       dropdown: [
-        { name: "Event Organizer", href: "/login" },
-        { name: "Venue Manager", href: "/register" },
+        { name: "Event Organizer", href: "#" },
+        { name: "Venue Manager", href: "#" },
       ],
     },
   ];
@@ -74,7 +94,14 @@ const Header = () => {
                         )
                       }
                     >
-                      {link.name}
+                      <span className="flex items-center">
+                        {link.name === "I am" && (
+                          <span className="ml-2 text-xs bg-gradient-to-r from-cyan-500 to-purple-500 px-2 py-1 rounded-full">
+                            I am {currentUserType === 'event-organizer' ? 'Organizer' : 'Manager'}
+                          </span>
+                        )}
+                        {link.name !== "I am" && link.name}
+                      </span>
                       <FiChevronDown className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:text-primary" />
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
                     </button>
@@ -88,16 +115,44 @@ const Header = () => {
                       }`}
                     >
                       <div className="py-2">
-                        {link.dropdown.map((item, idx) => (
-                          <a
-                            key={idx}
-                            href={item.href}
-                            className="block px-4 py-2 text-white hover:bg-white/5 hover:text-primary transition-colors duration-300"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            {item.name}
-                          </a>
-                        ))}
+                        {link.dropdown.map((item, idx) => {
+                          const userType =
+                            item.name === "Event Organizer"
+                              ? "event-organizer"
+                              : "venue-manager";
+                          const isSelected = currentUserType === userType;
+                          
+                          return (
+                            <a
+                              key={idx}
+                              href={item.href}
+                              className={`block px-4 py-2 text-white hover:bg-white/5 hover:text-primary transition-colors duration-300 ${
+                                isSelected ? 'bg-white/10 text-primary' : ''
+                              }`}
+                              onClick={(e) => {
+                                e.preventDefault(); // Prevent navigation
+                                setActiveDropdown(null);
+                                // Update URL to reflect user type
+                                const url = new URL(window.location.href);
+                                url.searchParams.set("type", userType);
+                                window.history.pushState({}, "", url.toString());
+                                // Trigger a custom event to notify the homepage component
+                                window.dispatchEvent(
+                                  new CustomEvent("userTypeChanged", {
+                                    detail: userType,
+                                  })
+                                );
+                              }}
+                            >
+                              <span className="flex items-center justify-between">
+                                {item.name}
+                                {isSelected && (
+                                  <span className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></span>
+                                )}
+                              </span>
+                            </a>
+                          );
+                        })}
                       </div>
                     </div>
                   </>
@@ -177,19 +232,45 @@ const Header = () => {
                         : "max-h-0 py-0"
                     }`}
                   >
-                    {link.dropdown.map((item, idx) => (
-                      <a
-                        key={idx}
-                        href={item.href}
-                        className="block text-gray-300 hover:text-primary transition-colors duration-300 py-1"
-                        onClick={() => {
-                          setActiveDropdown(null);
-                          setIsOpen(false);
-                        }}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+                    {link.dropdown.map((item, idx) => {
+                      const userType =
+                        item.name === "Event Organizer"
+                          ? "event-organizer"
+                          : "venue-manager";
+                      const isSelected = currentUserType === userType;
+                      
+                      return (
+                        <a
+                          key={idx}
+                          href={item.href}
+                          className={`block text-gray-300 hover:text-primary transition-colors duration-300 py-1 ${
+                            isSelected ? 'text-primary' : ''
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault(); // Prevent navigation
+                            setActiveDropdown(null);
+                            setIsOpen(false);
+                            // Update URL to reflect user type (same as desktop)
+                            const url = new URL(window.location.href);
+                            url.searchParams.set("type", userType);
+                            window.history.pushState({}, "", url.toString());
+                            // Trigger a custom event to notify the homepage component
+                            window.dispatchEvent(
+                              new CustomEvent("userTypeChanged", {
+                                detail: userType,
+                              })
+                            );
+                          }}
+                        >
+                          <span className="flex items-center justify-between">
+                            {item.name}
+                            {isSelected && (
+                              <span className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></span>
+                            )}
+                          </span>
+                        </a>
+                      );
+                    })}
                   </div>
                 </div>
               ) : (

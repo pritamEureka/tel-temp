@@ -1,6 +1,99 @@
 import { Check } from "lucide-react";
+import { useState, useEffect } from "react";
 
-const IndustryHomepage = () => {
+interface IndustryHomepageProps {
+  userType?: 'event-organizer' | 'venue-manager';
+}
+
+const IndustryHomepage = ({ userType = 'event-organizer' }: IndustryHomepageProps = {}) => {
+  const [currentUserType, setCurrentUserType] = useState<'event-organizer' | 'venue-manager'>(userType);
+
+  // Listen for URL changes or user type selection
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const typeParam = urlParams.get('type');
+    if (typeParam === 'venue-manager' || typeParam === 'event-organizer') {
+      setCurrentUserType(typeParam as 'event-organizer' | 'venue-manager');
+    }
+
+    // Listen for user type changes from header dropdown
+    const handleUserTypeChange = (event: CustomEvent) => {
+      setCurrentUserType(event.detail);
+    };
+
+    window.addEventListener('userTypeChanged', handleUserTypeChange as EventListener);
+    
+    return () => {
+      window.removeEventListener('userTypeChanged', handleUserTypeChange as EventListener);
+    };
+  }, []);
+
+  // Content configurations for different user types
+  const getContent = () => {
+    if (currentUserType === 'venue-manager') {
+      return {
+        badge: "Venue Management",
+        title: "Your Venue.",
+        subtitle1: "Full.",
+        subtitle2: "",
+        description: "EMS makes venue management effortless for venue operators through its powerful and intuitive platform. Whether it's a concert hall, conference center, or event space, EMS has the tools to help you manage bookings, optimize capacity, and maximize revenue. We're here for venue managers, with transparent pricing and no hidden fees, ever.",
+        features: [
+          {
+            title: "SMART BOOKING MANAGEMENT",
+            description: "Streamline your venue bookings with intelligent scheduling. Our advanced booking system prevents double-bookings, optimizes space utilization, and provides real-time availability updates to potential clients.",
+            color: "cyan"
+          },
+          {
+            title: "CAPACITY OPTIMIZATION",
+            description: "Maximize your venue's potential with AI-driven capacity management. Get insights on optimal pricing, peak booking times, and space configuration recommendations to increase your revenue.",
+            color: "purple"
+          },
+          {
+            title: "REVENUE ANALYTICS",
+            description: "Track your venue's performance with comprehensive analytics. Monitor booking patterns, revenue trends, and client preferences to make data-driven decisions for your business growth.",
+            color: "emerald"
+          },
+          {
+            title: "CLIENT RELATIONSHIP TOOLS",
+            description: "Build lasting relationships with event organizers through our integrated CRM tools. Track client history, preferences, and communications to provide exceptional service and secure repeat bookings.",
+            color: "orange"
+          }
+        ]
+      };
+    }
+    
+    return {
+      badge: "Live Platform",
+      title: "SELL TICKETS.",
+      subtitle1: "SIMPLE.",
+      subtitle2: "POWERFUL.",
+      description: "EMS makes ticketing simple for event organisers through its powerful and intuitive platform. Whether it's a festival, club night, or corporate event, EMS has the tools to help you sell tickets and manage your events. We're here for event organisers, and customers know exactly what they're paying for with no hidden fees, ever.",
+      features: [
+        {
+          title: "CLEAR, TRANSPARENT PRICING",
+          description: "Simple and transparent pricing with no hidden fees. You know exactly what you pay and. That's it! With EMS, there are no confusing pricing structures or surprise charges. We believe in being upfront about our pricing and your charges.",
+          color: "cyan"
+        },
+        {
+          title: "EFFORTLESS TICKETING PROCESS",
+          description: "Create and manage your events with ease. Our intuitive event creation platform is designed, letting you set up your event quickly ticket types, and start selling in minutes. No technical expertise required.",
+          color: "purple"
+        },
+        {
+          title: "INSIGHTFUL ANALYTICS AT YOUR FINGERTIPS",
+          description: "Make smarter decisions with real-time analytics. EMS provides comprehensive insights into your ticket sales, helping you track performance and understand your audience better. Get detailed reports and analytics and see how they interact with your events.",
+          color: "emerald"
+        },
+        {
+          title: "BUILT TO SCALE WITH YOU",
+          description: "Whether you're organizing a small gathering or a large festival, EMS scales with your needs. Our platform is built to handle events of all sizes, and our infrastructure is ready to handle all unlimited ticketing and payment processing, so you can focus on creating memorable experiences.",
+          color: "orange"
+        }
+      ]
+    };
+  };
+
+  const content = getContent();
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-indigo-950 text-white relative overflow-hidden">
       {/* Animated background elements */}
@@ -22,26 +115,39 @@ const IndustryHomepage = () => {
               <div className="max-w-2xl">
                 <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-cyan-400/30 shadow-lg">
                   <span className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mr-2 animate-pulse"></span>
-                  Live Platform
+                  {content.badge}
                 </div>
                 <h1 className="text-5xl lg:text-7xl font-black leading-tight mb-8 tracking-tight">
-                  SELL TICKETS.
-                  <br />
-                  <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                    SIMPLE.
-                  </span>
-                  <br />
-                  <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">
-                    POWERFUL.
-                  </span>
+                  {currentUserType === 'venue-manager' ? (
+                    <>
+                      <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
+                        {content.title}
+                      </span>
+                      <br />
+                      <span className="text-white">
+                        {content.subtitle1}
+                      </span>
+                      <br />
+                      <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">
+                        {content.subtitle2}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {content.title}
+                      <br />
+                      <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                        {content.subtitle1}
+                      </span>
+                      <br />
+                      <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">
+                        {content.subtitle2}
+                      </span>
+                    </>
+                  )}
                 </h1>
                 <p className="text-gray-300 text-xl leading-relaxed mb-12 max-w-2xl">
-                  EMS makes ticketing simple for event organisers through its
-                  powerful and intuitive platform. Whether it's a festival, club
-                  night, or corporate event, EMS has the tools to help you sell
-                  tickets and manage your events. We're here for event
-                  organisers, and customers know exactly what they're paying for
-                  with no hidden fees, ever.
+                  {content.description}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6">
                   <button className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-400 hover:via-blue-500 hover:to-purple-500 text-white px-10 py-5 rounded-2xl font-black text-lg tracking-wide transition-all duration-500 shadow-2xl hover:shadow-cyan-500/25 transform hover:-translate-y-3 hover:scale-105 relative overflow-hidden border border-cyan-400/20">
@@ -132,21 +238,42 @@ const IndustryHomepage = () => {
         <section className="px-6 py-20">
           <div className="max-w-6xl mx-auto">
             <p className="text-center text-gray-400 text-sm font-medium mb-12 tracking-wider">
-              TRUSTED BY LEADING EVENT ORGANIZERS
+              {currentUserType === 'venue-manager' 
+                ? 'TRUSTED BY LEADING VENUE OPERATORS' 
+                : 'TRUSTED BY LEADING EVENT ORGANIZERS'}
             </p>
             <div className="flex justify-center items-center space-x-16 opacity-80">
-              <div className="text-2xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
-                PALOMA
-              </div>
-              <div className="text-2xl font-black bg-gradient-to-r from-purple-400 via-pink-500 to-rose-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
-                MIRAGE
-              </div>
-              <div className="text-2xl font-black bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
-                206
-              </div>
-              <div className="text-2xl font-black bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
-                TML.
-              </div>
+              {currentUserType === 'venue-manager' ? (
+                <>
+                  <div className="text-2xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    MADISON SQUARE
+                  </div>
+                  <div className="text-2xl font-black bg-gradient-to-r from-purple-400 via-pink-500 to-rose-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    O2 ARENA
+                  </div>
+                  <div className="text-2xl font-black bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    JAVITS CENTER
+                  </div>
+                  <div className="text-2xl font-black bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    EXCEL LONDON
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-2xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    PALOMA
+                  </div>
+                  <div className="text-2xl font-black bg-gradient-to-r from-purple-400 via-pink-500 to-rose-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    MIRAGE
+                  </div>
+                  <div className="text-2xl font-black bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    206
+                  </div>
+                  <div className="text-2xl font-black bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer">
+                    TML.
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </section>
@@ -161,76 +288,55 @@ const IndustryHomepage = () => {
                 Why Choose EMS
               </div>
               <h2 className="text-4xl lg:text-6xl font-black mb-4 tracking-tight">
-                FAST, EFFICIENT AND
+                {currentUserType === 'venue-manager' ? 'SMART, RELIABLE AND' : 'FAST, EFFICIENT AND'}
                 <br />
                 <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  SECURE.
+                  {currentUserType === 'venue-manager' ? 'PROFITABLE.' : 'SECURE.'}
                 </span>
               </h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="group bg-gradient-to-br from-gray-900/60 to-gray-800/60 backdrop-blur-xl p-8 rounded-3xl border border-cyan-500/20 hover:border-cyan-400/50 transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl hover:shadow-cyan-500/20">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg">
-                  <div className="w-8 h-8 border-2 border-white rounded-full"></div>
-                </div>
-                <h3 className="text-xl font-bold mb-4 tracking-wide">
-                  CLEAR, TRANSPARENT PRICING
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  Simple and transparent pricing with no hidden fees. You know
-                  exactly what you pay and. That's it! With EMS, there are no
-                  confusing pricing structures or surprise charges. We believe
-                  in being upfront about our pricing and your charges.
-                </p>
-              </div>
-
-              <div className="group bg-gradient-to-br from-gray-900/60 to-gray-800/60 backdrop-blur-xl p-8 rounded-3xl border border-purple-500/20 hover:border-purple-400/50 transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl hover:shadow-purple-500/20">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg">
-                  <div className="w-8 h-8 border-2 border-white rounded"></div>
-                </div>
-                <h3 className="text-xl font-bold mb-4 tracking-wide">
-                  EFFORTLESS TICKETING PROCESS
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  Create and manage your events with ease. Our intuitive event
-                  creation platform is designed, letting you set up your event
-                  quickly ticket types, and start selling in minutes. No
-                  technical expertise required.
-                </p>
-              </div>
-
-              <div className="group bg-gradient-to-br from-gray-900/60 to-gray-800/60 backdrop-blur-xl p-8 rounded-3xl border border-emerald-500/20 hover:border-emerald-400/50 transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl hover:shadow-emerald-500/20">
-                <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg">
-                  <div className="w-8 h-8 border-2 border-white rounded"></div>
-                </div>
-                <h3 className="text-xl font-bold mb-4 tracking-wide">
-                  INSIGHTFUL ANALYTICS AT YOUR FINGERTIPS
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  Make smarter decisions with real-time analytics. EMS provides
-                  comprehensive insights into your ticket sales, helping you
-                  track performance and understand your audience better. Get
-                  detailed reports and analytics and see how they interact with
-                  your events.
-                </p>
-              </div>
-
-              <div className="group bg-gradient-to-br from-gray-900/60 to-gray-800/60 backdrop-blur-xl p-8 rounded-3xl border border-orange-500/20 hover:border-orange-400/50 transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl hover:shadow-orange-500/20">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg">
-                  <div className="w-8 h-8 border-2 border-white rounded"></div>
-                </div>
-                <h3 className="text-xl font-bold mb-4 tracking-wide">
-                  BUILT TO SCALE WITH YOU
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  Whether you're organizing a small gathering or a large
-                  festival, EMS scales with your needs. Our platform is built
-                  to handle events of all sizes, and our infrastructure is ready
-                  to handle all unlimited ticketing and payment processing, so
-                  you can focus on creating memorable experiences.
-                </p>
-              </div>
+              {content.features.map((feature, index) => {
+                const colorClasses = {
+                  cyan: {
+                    border: "border-cyan-500/20 hover:border-cyan-400/50",
+                    shadow: "hover:shadow-cyan-500/20",
+                    gradient: "from-cyan-500 to-blue-600"
+                  },
+                  purple: {
+                    border: "border-purple-500/20 hover:border-purple-400/50",
+                    shadow: "hover:shadow-purple-500/20",
+                    gradient: "from-purple-500 to-pink-600"
+                  },
+                  emerald: {
+                    border: "border-emerald-500/20 hover:border-emerald-400/50",
+                    shadow: "hover:shadow-emerald-500/20",
+                    gradient: "from-emerald-500 to-teal-600"
+                  },
+                  orange: {
+                    border: "border-orange-500/20 hover:border-orange-400/50",
+                    shadow: "hover:shadow-orange-500/20",
+                    gradient: "from-orange-500 to-red-600"
+                  }
+                };
+                
+                const colors = colorClasses[feature.color as keyof typeof colorClasses];
+                
+                return (
+                  <div key={index} className={`group bg-gradient-to-br from-gray-900/60 to-gray-800/60 backdrop-blur-xl p-8 rounded-3xl ${colors.border} transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl ${colors.shadow}`}>
+                    <div className={`w-16 h-16 bg-gradient-to-br ${colors.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg`}>
+                      <div className="w-8 h-8 border-2 border-white rounded-full"></div>
+                    </div>
+                    <h3 className="text-xl font-bold mb-4 tracking-wide">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
@@ -516,7 +622,7 @@ const IndustryHomepage = () => {
               
               <h2 className="text-6xl lg:text-7xl font-black tracking-tight leading-[0.9] text-white mb-8">
                 EXPERIENCE THE<br />
-                <span className="bg-gradient-to-r from-indigo-400 via-purple-500 via-pink-500 to-orange-500 bg-clip-text text-transparent">FUTURE OF EVENTS.</span>
+                <span className="bg-gradient-to-r from-indigo-400 via-purple-500 to-orange-500 bg-clip-text text-transparent">FUTURE OF EVENTS.</span>
               </h2>
               
               <p className="text-gray-300 text-2xl leading-relaxed max-w-4xl mx-auto font-medium">
