@@ -102,7 +102,7 @@ const ArtistsPageComponent = () => {
 
           {/* Next-gen Hero Section */}
           <section className="px-8 pt-32 pb-40 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <div className="text-center mb-24 relative">
                 {/* Ultra-modern floating badge */}
                 <div className="inline-flex items-center px-8 py-4 glass-effect rounded-full text-cyan-300 text-sm font-bold mb-12 shadow-2xl hover:shadow-cyan-500/25 transition-all duration-500 backdrop-blur-sm group animate-pulse-glow">
@@ -184,7 +184,7 @@ const ArtistsPageComponent = () => {
 
           {/* Ultra-modern Talent Section */}
           <section className="px-8 py-40 relative bg-gradient-to-b from-slate-900/50 to-indigo-900/50 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <div className="text-center mb-24">
                 <div className="inline-flex items-center px-6 py-3 glass-effect rounded-full text-emerald-300 text-sm font-bold mb-10 group">
                   <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300 text-emerald-400" />
@@ -314,7 +314,7 @@ const ArtistsPageComponent = () => {
 
           {/* Ultra-modern Booking Section - Full Width */}
           <section className="py-32 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto px-8">
+            <div className="max-w-6xl mx-auto px-8">
               {/* Modern animated marquee */}
               <div className="text-center mb-20">
                 <div className="flex items-center justify-center gap-12 text-5xl lg:text-7xl font-black text-white/20 mb-12 select-none">
@@ -344,7 +344,7 @@ const ArtistsPageComponent = () => {
 
           {/* Next-gen Booking Form */}
           <section className="px-8 py-32 relative bg-gradient-to-b from-slate-900/80 to-indigo-900/80">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <div className="text-center mb-20">
                 <div className="inline-flex items-center px-6 py-3 glass-effect rounded-full text-cyan-300 text-sm font-bold mb-10">
                   <Zap className="w-5 h-5 mr-2 animate-pulse text-cyan-400" />

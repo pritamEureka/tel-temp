@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -21,6 +22,7 @@ interface EventType {
 }
 
 const EventsPageComponent = () => {
+  const navigate = useNavigate();
   const [events, setEvents] = useState<EventType[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<EventType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -137,7 +139,11 @@ const EventsPageComponent = () => {
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredEvents.map((event) => (
-            <div key={event.id} className="group cursor-pointer h-full">
+            <div 
+              key={event.id} 
+              className="group cursor-pointer h-full"
+              onClick={() => navigate(`/event/${event.id}`)}
+            >
               {/* Event Card */}
               <div className="bg-[#030006] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col">
                 {/* Event Image */}

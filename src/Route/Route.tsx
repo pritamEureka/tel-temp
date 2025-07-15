@@ -13,6 +13,7 @@ import IndustryHomepage from "../pages/IndustryPage/IndustryHomepage";
 import ArtistsLayout from "../fontend/ArtistsLayout/ArtistsLayout";
 import ArtistsHomepage from "../pages/ArtistsHomepage/ArtistsHomepage";
 import LogInPage from "../pages/UserPage/LogInPage";
+import SingleEventPage from "../pages/UserPage/SingleEventPage";
 
 
 export const router = createBrowserRouter([
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "events", element: <EventsPage /> },
+      { path: "event/:eventId", element: <SingleEventPage /> },
     ],
   },
   {

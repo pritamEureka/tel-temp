@@ -59,7 +59,11 @@ const FeaturedEvent = () => {
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredEvents.slice(0, 3).map((event) => (
-            <div key={event.id} className="group cursor-pointer h-full">
+            <div 
+              key={event.id} 
+              className="group cursor-pointer h-full"
+              onClick={() => navigate(`/event/${event.id}`)}
+            >
               {/* Event Card */}
               <div className="bg-[#030006] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col">
                 {/* Event Image */}
